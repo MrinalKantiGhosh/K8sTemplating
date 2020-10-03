@@ -1,5 +1,14 @@
 usage_message="Usage $0 <command>\nCommands:"
 
+_create_deployment() {
+  kubectl apply -f yamlConfig/deployment.yaml
+  kubectl rollout status deploy dobby
+}
+
+__deploy() {
+  _create_deployment
+}
+
 CMD=${1:-}
 shift || true
 if __${CMD} "$@"; then ## Functions to be called as commands are prefixed with __
