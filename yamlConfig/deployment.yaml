@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: dobby
+  name: dobby
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: dobby
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: "25%"
+      maxUnavailable: "25%"
+  template:
+    metadata:
+      labels:
+        app: dobby
+    spec:
+      containers:
+      - image: thecasualcoder/dobby
+        name: dobby
+        ports:
+          - containerPort: 4444
+        env:
+          - name: INITIAL_DELAY
+            value: "20"
+        readinessProbe:
+          httpGet:
+            path: /readiness
+            port: 4444
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 2
+          successThreshold: 2
+          failureThreshold: 1
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 4444
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 2
+          successThreshold: 1
+          failureThreshold: 2
+        securityContext:
+          runAsUser: 1000
+        resources:
+          requests:
+            cpu: 10m
+            memory: 50Mi
+          limits:
+            cpu: 20m
+            memory: 60Mi
