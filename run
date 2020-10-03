@@ -5,8 +5,13 @@ _create_deployment() {
   kubectl rollout status deploy dobby
 }
 
+__create_service() {
+  kubectl apply -f yamlConfig/service.yaml
+}
+
 __deploy() {
   _create_deployment
+  __create_service
 }
 
 CMD=${1:-}
