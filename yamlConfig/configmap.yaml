@@ -1,0 +1,12 @@
+apiVersion: v1
+data:
+  INITIAL_DELAY: "20"
+  LIVENESSPROBE_INITIAL_DELAY_SECONDS: "30"
+  READINESSPROBE_INITIAL_DELAY_SECONDS: "10"
+  CPU_REQUEST: "10m"
+  MEMORY_REQUEST: "10Mi"
+  CPU_LIMIT: "20m"
+  MEMORY_LIMIT: "20Mi"
+kind: ConfigMap
+metadata:
+  name: dobby-config

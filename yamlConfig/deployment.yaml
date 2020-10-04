@@ -24,9 +24,9 @@ spec:
         name: dobby
         ports:
           - containerPort: 4444
-        env:
-          - name: INITIAL_DELAY
-            value: "20"
+        envFrom:
+          - configMapRef:
+              name: dobby-config
         readinessProbe:
           httpGet:
             path: /readiness

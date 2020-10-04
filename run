@@ -1,18 +1,26 @@
-usage_message="Usage $0 <command>\nCommands:"
+#!/bin/bash
+set -eo pipefail
+
+_create_configmap() {
+    kubectl apply -f yamlConfig/configmap.yaml
+}
 
 _create_deployment() {
   kubectl apply -f yamlConfig/deployment.yaml
   kubectl rollout status deploy dobby
 }
 
-__create_service() {
+_create_service() {
   kubectl apply -f yamlConfig/service.yaml
 }
 
 __deploy() {
+  _create_configmap
   _create_deployment
-  __create_service
+  _create_service
 }
+
+usage_message="Usage $0 <command>\nCommands:"
 
 CMD=${1:-}
 shift || true
