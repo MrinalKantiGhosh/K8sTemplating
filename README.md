@@ -17,5 +17,5 @@ Use ```./run deploy``` to start the application in your local. Make sure you hav
  1. Configmap stores a lot of specifications which can control the deployment in it's way. But deployment will not consume any spec from configmap. it will only consume those which are service/image specifications. So it would create a problem if we want to create a configurable deployment for each environemnt.
  
  ### Solution Acceptence Criteria:
- 1. We can consume deployment specifications from either configmap or from anywhere else. But it has to be passed when deployment is about to create.  
+ 1. It should consume deployment specifications from either configmap or from anywhere else. But it has to be passed when deployment is about to create.  
  _Example_:- CPU request and limits can change based on their environment. So it will consume from either from one of our configmap or else from any env value files
